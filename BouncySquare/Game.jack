@@ -1,0 +1,173 @@
+class Game {
+
+    // La istanza del gioco che viene avviata
+    static Game instance;
+
+    // Il personaggio e il suo delta time
+    field Square dude;
+    field int delta, deltaTime;   // deltaTime è una costante
+
+    // Gli spike
+    field Spike spikeR, spikeL;
+    field int spikeDelta, spikeDeltaTime;
+
+    // Per uscire dal gioco
+    field boolean endGame;
+
+    // Variabili per disegnare spike soffitto/bottom
+    field int ds, k;
+
+    // Il punteggio
+    field int score;
+
+    // Costruisce un nuovo gioco
+    constructor Game new() {
+      	do Screen.clearScreen();
+
+        // Imposta il delta
+        let deltaTime = 80;
+        let delta = deltaTime;
+
+        // Disegna muri
+      	do Screen.drawRectangle(0, 0, 150, 255); // sx
+        do Screen.drawRectangle(361, 0, 511, 255); // dx
+
+        // Disegna spike soffitto/bottom
+        let ds = 0;
+        let k = 0;
+
+        while (ds < 11) {
+          do Screen.drawLine(150+k,0, 160+k,10);
+          do Screen.drawLine(160+k,10, 170+k,0);
+
+          do Screen.drawLine(150+k,255, 160+k,245);
+          do Screen.drawLine(160+k,245, 170+k,255);
+          let ds = ds + 1;
+          let k = k + 20;
+        }
+
+        // crea e disegna spike destr sinistra
+        let spikeR = Spike.new(true);
+        let spikeL = Spike.new(false);
+
+        // Disegna punteggio
+      	do Output.moveCursor(0,6);
+      	do Output.printString("Score: ");
+
+        // Crea personaggio
+        let dude = Square.new(253, 120);
+
+      	let endGame = false;
+      	let score = 0;
+
+        return this;
+    }
+
+    // Libera la memoria a gioco finito
+    method void dispose() {
+        do dude.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    // Crea una istanza del gioco e la memorizza
+    function void newInstance() {
+        let instance = Game.new();
+        return;
+    }
+
+    // Ritorna l' istanza di gioco creata
+    function PongGame getInstance() {
+        return instance;
+    }
+
+    // Metodo update del gioco
+    method void run() {
+        var char key;
+
+        // controllo se morto
+        let endGame = dude.isDead();
+
+        // Finche' engGame è falso
+        while (~endGame) {
+
+          // scrittura punteggio
+          let score = dude.getPoints();
+
+          do Output.moveCursor(0,13);
+          do Output.printInt(score);
+
+          // difficolta in base al punteggio
+          if (score > 5) {
+            do spikeR.setSpd(5);
+            do spikeL.setSpike(3);
+
+            if (score > 10) {
+              do spikeL.setSpd(5);
+              do spikeR.setSpike(3);
+            }
+
+            if (score > 15) {
+              do spikeR.setSpd(7);
+              do spikeL.setSpd(7);
+              do spikeL.setSpike(3);
+              do spikeR.setSpike(3);
+            }
+          }
+
+          // Update di posizione e disegno degli spike
+          do spikeR.move(true);
+          do spikeR.draw(true);
+          do spikeL.move(false);
+          do spikeL.draw(false);
+
+          // Metto la tastiera in ascolto per i tasti premuti
+            while ((key = 0) & (~endGame)) {
+                let key = Keyboard.keyPressed();
+
+                if (delta = 0) {
+                  do dude.move();
+                  let delta = deltaTime;
+                }
+                else {
+                  let delta = delta - 1;
+                }
+            }
+
+            //////////////////////////////
+            // 32 = space, 140 = escape //
+            //////////////////////////////
+
+            if (key = 32) {
+              do dude.jump();
+            }
+
+            // Se premo esc finisco il gioco
+            if (key = 140) {let endGame = true;}
+
+            // Metto la tastiera in ascolto per i tasti rilasciati
+            while ((~(key = 0)) & (~endGame)) {
+                let key = Keyboard.keyPressed();
+
+                if (delta = 0) {
+                  do dude.move();
+                  let delta = deltaTime;
+                }
+                else {
+                  let delta = delta - 1;
+                }
+            }
+
+            // controllo se morto
+            let endGame = dude.isDead();
+        }
+
+  // Stampa il game over in mezzo allo schermo
+	if (endGame) {
+    	do Output.moveCursor(10,27);
+	    do Output.printString("Hai perso!");
+	}
+
+    return;
+  }
+}

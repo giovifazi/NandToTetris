@@ -1,0 +1,19 @@
+class Main {
+
+    // Inizializza il gioco
+    function void main() {
+        var Game game;
+
+        // Crea la istanza di gioco fixed
+	      do Game.newInstance();
+        let game = Game.getInstance();
+
+        // Esegue l' update del gioco
+        do game.run();
+
+        // Finito l' update pulisce la memoria
+	      do game.dispose();
+
+        return;
+    }
+}

@@ -1,0 +1,111 @@
+class Spike {
+
+  // Coordinate e velocita
+  field int x, y, dir, spNum, spd;
+
+  constructor Spike new(boolean right) {
+    if (right)
+    {
+      let x = 360-15;
+      let y = 100;
+      let dir = 180;
+    }
+    else {
+      let x = 151;
+      let y = 100;
+      let dir = 90;
+    }
+
+    let spNum = 2;
+    let spd = 3;
+
+    return this;
+  }
+
+  // Metodi per controllare collisione
+  method int getX() {
+    return x;
+  }
+
+  method int getY() {
+    return y;
+  }
+
+  method int getSP() {
+    return spNum;
+  }
+
+  // Metodi per aumentare difficolta
+  method void setSpike(int a) {
+    let spNum = a;
+    return;
+  }
+
+  method void setSpd(int a) {
+    let spd = a;
+    return;
+  }
+
+  // Metodo per il disengo
+  method void draw(boolean right) {
+    var int i,k;
+
+      while(i < spNum)
+      {
+        if (right) {
+          do Screen.drawLine(x+15,y+k, x,y+5+k);
+          do Screen.drawLine(x,y+5+k, x+15,y+10+k);
+        }
+        else {
+          do Screen.drawLine(x,y+k, x+15,y+5+k);
+          do Screen.drawLine(x+15,y+5+k, x,y+10+k);
+        }
+
+        let k = k + 10;
+        let i = i + 1;
+      }
+
+    return;
+  }
+
+    // Metodo per il movimento
+    method void move(boolean right) {
+      var int i,k;
+
+      do Screen.setColor(false);
+
+      while(i < spNum)
+      {
+        if (right) {
+          do Screen.drawLine(x+15,y+k, x,y+5+k);
+          do Screen.drawLine(x,y+5+k, x+15,y+10+k);
+        } else {
+          do Screen.drawLine(x,y+k, x+15,y+5+k);
+          do Screen.drawLine(x+15,y+5+k, x,y+10+k);
+        }
+
+        let k = k + 10;
+        let i = i + 1;
+      }
+
+      do Screen.setColor(true);
+
+      if (y < 20) {
+        let dir = 180;
+      }
+
+      if (y+(spNum+25) > 240) {
+        let dir = 90;
+      }
+
+      if (dir = 90) {
+        let y = y -spd;
+      }
+      else {
+        let y = y +spd;
+      }
+
+    return;
+  }
+
+}

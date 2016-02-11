@@ -1,0 +1,141 @@
+class Square {
+
+    // Coordinate - direzione (0 = dx) - velocità movimento
+    field int x, y, dir, spd, yprev, xprev, points;
+
+    // Se deve saltare o no
+    field boolean jump;
+
+    // Se morto o meno
+    field boolean dead;
+
+    // Costruttore
+    constructor Square new(int xx, int yy) {
+    	let x = xx;
+    	let y = yy;
+    	let dir = 0;
+      let spd = 1;
+      let dead = false;
+      let points = 0;
+
+      do show();
+
+      return this;
+    }
+
+    // metodo distruggi
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    // metodi per collisione
+    method int getX() {
+      return x;
+    }
+
+    method int getY() {
+      return y;
+    }
+
+    // medodo per finire il gioco se morto
+    method boolean isDead() {
+      return dead;
+    }
+
+    // medodo per aggiornare i punti
+    method int getPoints() {
+      return points;
+    }
+
+    // metodi per il disegno
+    method void show() {
+        do Screen.setColor(true);
+	      do draw();
+        return;
+    }
+
+    method void hide() {
+        do Screen.setColor(false);
+	      do draw();
+        return;
+    }
+
+    method void draw() {
+	     do Screen.drawRectangle(x, y, x + 20, y + 20);
+	     return;
+    }
+
+    // metodo per saltare
+    method void jump() {
+      // Controlla la collisione col soffitto
+      if (y - 30 < 11) {
+        let dead = true;
+      }
+      else {
+        let y = y - 30;
+      }
+
+      do Screen.setColor(false);
+      do Screen.drawRectangle(xprev-1, yprev-1, xprev+21, yprev+20);
+      do Screen.setColor(true);
+      do Screen.drawRectangle(x, y, x+20, y+20);
+      return;
+    }
+
+    // metodo evocato ogni step, fa l' update della posizione
+    method void move() {
+       if (~dead) {
+         // registra i valori precendenti di x e y
+         let yprev = y;
+         let xprev = x;
+
+         // movimento a sinistra
+  	     if (dir = 1) {
+          let x = x - spd;
+
+          if (x-spd < 151) {
+            let dir = 0;
+            let x = 152;
+            let points = points +1;
+          }
+  	     }
+         // movimento a destra
+  	     else {
+          let x = x + spd;
+
+          if (x+20+spd > 360) {
+            let dir = 1;
+            let x = 340;
+            let points = points +1;
+          }
+  	     }
+
+         // Disegna
+         do Screen.setColor(false);
+         do Screen.drawRectangle(xprev, yprev-1, xprev+20, yprev+20);
+         do Screen.setColor(true);
+         do Screen.drawRectangle(x, y, x+20, y+20);
+
+         // gravità
+         let y = y + 1;
+
+         // controllo se tocco spike bottom
+         if (y+20 > 244) {
+           let dead = true;
+           let y = 100;
+         }
+     }
+     else
+     {
+       do Screen.setColor(false);
+       do Screen.drawRectangle(xprev-1, yprev-1, xprev+21, yprev+20);
+       do Screen.setColor(false);
+       do Screen.drawRectangle(x-1, y, x+21, y+20);
+
+       do Output.moveCursor(10,27);
+ 	     do Output.printString("Hai perso!");
+     }
+       return;
+    }
+}

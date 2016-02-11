@@ -38,6 +38,38 @@ class Square {
       return y;
     }
 
+    method void checkCollisionL(int xx, int yy, int sp)
+    {
+      if (x < (xx+15))
+      {
+        if (y+20 > yy)
+        {
+          if (y < (yy+(sp*10)))
+          {
+            let dead = true;
+          }
+        }
+      }
+
+      return;
+    }
+
+    method void checkCollisionR(int xx, int yy, int sp)
+    {
+      if (x+20 > xx)
+      {
+        if (y+20 > yy)
+        {
+          if (y < (yy+(sp*10)))
+          {
+            let dead = true;
+          }
+        }
+      }
+
+      return;
+    }
+
     // medodo per finire il gioco se morto
     method boolean isDead() {
       return dead;

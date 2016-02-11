@@ -8,6 +8,10 @@ push constant 80
 pop this 2
 push this 2
 pop this 1
+push constant 120
+pop this 5
+push this 5
+pop this 6
 push constant 0
 push constant 0
 push constant 150
@@ -138,7 +142,7 @@ return
 function Game.getInstance 0
 push static 0
 return
-function Game.run 1
+function Game.run 7
 push argument 0
 pop pointer 0
 push this 0
@@ -149,6 +153,36 @@ push this 7
 not
 not
 if-goto WHILE_END0
+push this 4
+call Spike.getX 1
+pop local 1
+push this 4
+call Spike.getY 1
+pop local 2
+push this 4
+call Spike.getSP 1
+pop local 3
+push this 0
+push local 1
+push local 2
+push local 3
+call Square.checkCollisionL 4
+pop temp 0
+push this 3
+call Spike.getX 1
+pop local 4
+push this 3
+call Spike.getY 1
+pop local 5
+push this 3
+call Spike.getSP 1
+pop local 6
+push this 0
+push local 4
+push local 5
+push local 6
+call Square.checkCollisionR 4
+pop temp 0
 push this 0
 call Square.getPoints 1
 pop this 10
@@ -166,7 +200,7 @@ if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
 push this 3
-push constant 5
+push constant 4
 call Spike.setSpd 2
 pop temp 0
 push this 4
@@ -180,7 +214,7 @@ if-goto IF_TRUE1
 goto IF_FALSE1
 label IF_TRUE1
 push this 4
-push constant 5
+push constant 4
 call Spike.setSpd 2
 pop temp 0
 push this 3
@@ -195,11 +229,11 @@ if-goto IF_TRUE2
 goto IF_FALSE2
 label IF_TRUE2
 push this 3
-push constant 7
+push constant 6
 call Spike.setSpd 2
 pop temp 0
 push this 4
-push constant 7
+push constant 6
 call Spike.setSpd 2
 pop temp 0
 push this 4
@@ -212,24 +246,6 @@ call Spike.setSpike 2
 pop temp 0
 label IF_FALSE2
 label IF_FALSE0
-push this 3
-push constant 0
-not
-call Spike.move 2
-pop temp 0
-push this 3
-push constant 0
-not
-call Spike.draw 2
-pop temp 0
-push this 4
-push constant 0
-call Spike.move 2
-pop temp 0
-push this 4
-push constant 0
-call Spike.draw 2
-pop temp 0
 label WHILE_EXP1
 push local 0
 push constant 0
@@ -241,6 +257,36 @@ not
 if-goto WHILE_END1
 call Keyboard.keyPressed 0
 pop local 0
+push this 4
+call Spike.getX 1
+pop local 1
+push this 4
+call Spike.getY 1
+pop local 2
+push this 4
+call Spike.getSP 1
+pop local 3
+push this 0
+push local 1
+push local 2
+push local 3
+call Square.checkCollisionL 4
+pop temp 0
+push this 3
+call Spike.getX 1
+pop local 4
+push this 3
+call Spike.getY 1
+pop local 5
+push this 3
+call Spike.getSP 1
+pop local 6
+push this 0
+push local 4
+push local 5
+push local 6
+call Square.checkCollisionR 4
+pop temp 0
 push this 1
 push constant 0
 eq
@@ -259,28 +305,61 @@ push constant 1
 sub
 pop this 1
 label IF_END3
+push this 5
+push constant 0
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push this 3
+push constant 0
+not
+call Spike.move 2
+pop temp 0
+push this 3
+push constant 0
+not
+call Spike.draw 2
+pop temp 0
+push this 4
+push constant 0
+call Spike.move 2
+pop temp 0
+push this 4
+push constant 0
+call Spike.draw 2
+pop temp 0
+push this 6
+pop this 5
+goto IF_END4
+label IF_FALSE4
+push this 5
+push constant 1
+sub
+pop this 5
+label IF_END4
 goto WHILE_EXP1
 label WHILE_END1
 push local 0
 push constant 32
 eq
-if-goto IF_TRUE4
-goto IF_FALSE4
-label IF_TRUE4
-push this 0
-call Square.jump 1
-pop temp 0
-label IF_FALSE4
-push local 0
-push constant 140
-eq
 if-goto IF_TRUE5
 goto IF_FALSE5
 label IF_TRUE5
+push this 0
+call Square.jump 1
+pop temp 0
+label IF_FALSE5
+push local 0
+push constant 140
+eq
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
 push constant 0
 not
 pop this 7
-label IF_FALSE5
+label IF_FALSE6
 label WHILE_EXP2
 push local 0
 push constant 0
@@ -293,24 +372,87 @@ not
 if-goto WHILE_END2
 call Keyboard.keyPressed 0
 pop local 0
+push this 4
+call Spike.getX 1
+pop local 1
+push this 4
+call Spike.getY 1
+pop local 2
+push this 4
+call Spike.getSP 1
+pop local 3
+push this 0
+push local 1
+push local 2
+push local 3
+call Square.checkCollisionL 4
+pop temp 0
+push this 3
+call Spike.getX 1
+pop local 4
+push this 3
+call Spike.getY 1
+pop local 5
+push this 3
+call Spike.getSP 1
+pop local 6
+push this 0
+push local 4
+push local 5
+push local 6
+call Square.checkCollisionR 4
+pop temp 0
 push this 1
 push constant 0
 eq
-if-goto IF_TRUE6
-goto IF_FALSE6
-label IF_TRUE6
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
 push this 0
 call Square.move 1
 pop temp 0
 push this 2
 pop this 1
-goto IF_END6
-label IF_FALSE6
+goto IF_END7
+label IF_FALSE7
 push this 1
 push constant 1
 sub
 pop this 1
-label IF_END6
+label IF_END7
+push this 5
+push constant 0
+eq
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
+push this 3
+push constant 0
+not
+call Spike.move 2
+pop temp 0
+push this 3
+push constant 0
+not
+call Spike.draw 2
+pop temp 0
+push this 4
+push constant 0
+call Spike.move 2
+pop temp 0
+push this 4
+push constant 0
+call Spike.draw 2
+pop temp 0
+push this 6
+pop this 5
+goto IF_END8
+label IF_FALSE8
+push this 5
+push constant 1
+sub
+pop this 5
+label IF_END8
 goto WHILE_EXP2
 label WHILE_END2
 push this 0
@@ -319,9 +461,9 @@ pop this 7
 goto WHILE_EXP0
 label WHILE_END0
 push this 7
-if-goto IF_TRUE7
-goto IF_FALSE7
-label IF_TRUE7
+if-goto IF_TRUE9
+goto IF_FALSE9
+label IF_TRUE9
 push constant 10
 push constant 27
 call Output.moveCursor 2
@@ -350,6 +492,6 @@ push constant 33
 call String.appendChar 2
 call Output.printString 1
 pop temp 0
-label IF_FALSE7
+label IF_FALSE9
 push constant 0
 return

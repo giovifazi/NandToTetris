@@ -37,6 +37,80 @@ push argument 0
 pop pointer 0
 push this 1
 return
+function Square.checkCollisionL 0
+push argument 0
+pop pointer 0
+push this 0
+push argument 1
+push constant 15
+add
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 1
+push constant 20
+add
+push argument 2
+gt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 1
+push argument 2
+push argument 3
+push constant 10
+call Math.multiply 2
+add
+lt
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 0
+not
+pop this 8
+label IF_FALSE2
+label IF_FALSE1
+label IF_FALSE0
+push constant 0
+return
+function Square.checkCollisionR 0
+push argument 0
+pop pointer 0
+push this 0
+push constant 20
+add
+push argument 1
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 1
+push constant 20
+add
+push argument 2
+gt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 1
+push argument 2
+push argument 3
+push constant 10
+call Math.multiply 2
+add
+lt
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 0
+not
+pop this 8
+label IF_FALSE2
+label IF_FALSE1
+label IF_FALSE0
+push constant 0
+return
 function Square.isDead 0
 push argument 0
 pop pointer 0

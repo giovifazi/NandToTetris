@@ -27,6 +27,8 @@ class Game {
         // Imposta il delta
         let deltaTime = 80;
         let delta = deltaTime;
+        let spikeDelta = 120;
+        let spikeDeltaTime = spikeDelta;
 
         // Disegna muri
       	do Screen.drawRectangle(0, 0, 150, 255); // sx
@@ -84,12 +86,28 @@ class Game {
     // Metodo update del gioco
     method void run() {
         var char key;
+        var int sLeftx, sLefty, sLefts;
+        var int sRightx, sRighty, sRights;
 
         // controllo se morto
         let endGame = dude.isDead();
 
         // Finche' engGame è falso
         while (~endGame) {
+
+          // controllo collisione con spike a sinistra
+          let sLeftx = spikeL.getX();
+          let sLefty = spikeL.getY();
+          let sLefts = spikeL.getSP();
+
+          do dude.checkCollisionL(sLeftx, sLefty, sLefts);
+
+          // controllo collisione con spike a destra
+          let sRightx = spikeR.getX();
+          let sRighty = spikeR.getY();
+          let sRights = spikeR.getSP();
+
+          do dude.checkCollisionR(sRightx, sRighty, sRights);
 
           // scrittura punteggio
           let score = dude.getPoints();
@@ -99,31 +117,39 @@ class Game {
 
           // difficolta in base al punteggio
           if (score > 5) {
-            do spikeR.setSpd(5);
+            do spikeR.setSpd(4);
             do spikeL.setSpike(3);
 
             if (score > 10) {
-              do spikeL.setSpd(5);
+              do spikeL.setSpd(4);
               do spikeR.setSpike(3);
             }
 
             if (score > 15) {
-              do spikeR.setSpd(7);
-              do spikeL.setSpd(7);
+              do spikeR.setSpd(6);
+              do spikeL.setSpd(6);
               do spikeL.setSpike(3);
               do spikeR.setSpike(3);
             }
           }
 
-          // Update di posizione e disegno degli spike
-          do spikeR.move(true);
-          do spikeR.draw(true);
-          do spikeL.move(false);
-          do spikeL.draw(false);
-
           // Metto la tastiera in ascolto per i tasti premuti
             while ((key = 0) & (~endGame)) {
                 let key = Keyboard.keyPressed();
+
+                // controllo collisione con spike a sinistra
+                let sLeftx = spikeL.getX();
+                let sLefty = spikeL.getY();
+                let sLefts = spikeL.getSP();
+
+                do dude.checkCollisionL(sLeftx, sLefty, sLefts);
+
+                // controllo collisione con spike a destra
+                let sRightx = spikeR.getX();
+                let sRighty = spikeR.getY();
+                let sRights = spikeR.getSP();
+
+                do dude.checkCollisionR(sRightx, sRighty, sRights);
 
                 if (delta = 0) {
                   do dude.move();
@@ -131,6 +157,19 @@ class Game {
                 }
                 else {
                   let delta = delta - 1;
+                }
+
+                if (spikeDelta = 0)
+                {
+                  do spikeR.move(true);
+                  do spikeR.draw(true);
+                  do spikeL.move(false);
+                  do spikeL.draw(false);
+                  let spikeDelta = spikeDeltaTime;
+                }
+                else
+                {
+                  let spikeDelta = spikeDelta -1;
                 }
             }
 
@@ -149,12 +188,39 @@ class Game {
             while ((~(key = 0)) & (~endGame)) {
                 let key = Keyboard.keyPressed();
 
+                // controllo collisione con spike a sinistra
+                let sLeftx = spikeL.getX();
+                let sLefty = spikeL.getY();
+                let sLefts = spikeL.getSP();
+
+                do dude.checkCollisionL(sLeftx, sLefty, sLefts);
+
+                // controllo collisione con spike a destra
+                let sRightx = spikeR.getX();
+                let sRighty = spikeR.getY();
+                let sRights = spikeR.getSP();
+
+                do dude.checkCollisionR(sRightx, sRighty, sRights);
+
                 if (delta = 0) {
                   do dude.move();
                   let delta = deltaTime;
                 }
                 else {
                   let delta = delta - 1;
+                }
+
+                if (spikeDelta = 0)
+                {
+                  do spikeR.move(true);
+                  do spikeR.draw(true);
+                  do spikeL.move(false);
+                  do spikeL.draw(false);
+                  let spikeDelta = spikeDeltaTime;
+                }
+                else
+                {
+                  let spikeDelta = spikeDelta -1;
                 }
             }
 

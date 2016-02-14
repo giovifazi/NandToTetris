@@ -1,0 +1,14 @@
+class Main {
+
+  function void main() {
+    // Imposta la grafica per il terminale
+    do Screen.drawLine(0,230, 511,230);
+    do Screen.drawLine(0,229, 511,229);
+    do Screen.drawLine(0,228, 511,228);
+    do Screen.drawLine(0,227, 511,227);
+
+    do Output.moveCursor(22, 0);
+    do Output.printString(">");
+    return;
+  }
+}

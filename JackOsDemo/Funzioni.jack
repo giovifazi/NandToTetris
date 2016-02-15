@@ -25,6 +25,7 @@ class Funzioni {
     // Imposta o white o black
     if (c = 67) {
       do clearScreen();
+      return;
     }
     else {
       if (c = 87) {
@@ -57,12 +58,86 @@ class Funzioni {
     return;
   }
 
+  method String copyIntUntil(int pos, char cStop, String str) {
+    var char cur;
+    var String ret;
+    var boolean end;
+
+    let end = false;
+    let ret = String.new(3);
+
+    while(~end) {
+      // cur tiene il carattere della posizione
+      let cur = str.charAt(pos);
+
+      // se cur è il carattere dove fermarsi
+      if (cur = cStop)
+      {
+        let end = true;
+      }
+      // se devo copiare
+      else
+      {
+        let ret = ret.appendChar(cur);
+        let pos = pos +1;
+      }
+    }
+
+    return ret;
+
+  }
+
   method void line(String s) {
     var String x,y, xx,yy;
 
-    let x = copyIntUntil(6)
+    let x = copyIntUntil(6, 44, s);
+    let y = copyIntUntil(7+x.length(), 59, s);
+    let xx = copyIntUntil(8+x.length()+y.length(), 44, s);
+    let yy = copyIntUntil(9+x.length()+y.length()+xx.length(), 59, s);
 
+    if (y.intValue() > 230) {
+      do Sys.error(1);
+    }
 
+    do Screen.drawLine(x.intValue(),y.intValue(), xx.intValue(),yy.intValue());
+
+    return;
+  }
+
+  method void circle(String s) {
+    var String x,y,r;
+
+    let x = copyIntUntil(6, 44, s);
+    let y = copyIntUntil(7+x.length(), 44, s);
+    let r = copyIntUntil(8+x.length()+y.length(), 59, s);
+
+    do Screen.drawCircle(x.intValue(), y.intValue(), r.intValue());
+
+    return;
+  }
+
+  method void rectangle(String s) {
+    var String x,y, xx,yy;
+
+    let x = copyIntUntil(6, 44, s);
+    let y = copyIntUntil(7+x.length(), 59, s);
+    let xx = copyIntUntil(8+x.length()+y.length(), 44, s);
+    let yy = copyIntUntil(9+x.length()+y.length()+xx.length(), 59, s);
+
+    do Screen.drawRectangle(x.intValue(),y.intValue(), xx.intValue(),yy.intValue());
+
+    return;
+  }
+
+  method void pixel(String s) {
+    var String x,y;
+
+    let x = copyIntUntil(6, 44, s);
+    let y = copyIntUntil(7+x.length(), 59, s);
+
+    do Screen.drawPixel(x.intValue(), y.intValue());
+
+    return;
   }
 
 }

@@ -1,14 +1,42 @@
 class Main {
 
   function void main() {
-    // Imposta la grafica per il terminale
-    do Screen.drawLine(0,230, 511,230);
-    do Screen.drawLine(0,229, 511,229);
-    do Screen.drawLine(0,228, 511,228);
-    do Screen.drawLine(0,227, 511,227);
 
-    do Output.moveCursor(22, 0);
-    do Output.printString(">");
+    var Funzioni f;
+    var String command;
+    var boolean advance;
+    var char exit;
+
+    let advance = true;
+    let command = String.new(25);
+    let f = Funzioni.new();
+
+    // Imposta la grafica per il terminale
+    do Screen.drawLine(0,232, 511,232);
+    do Screen.drawLine(0,231, 511,231);
+
+    while(advance) {
+      // Pulisce lo schermo per il comando
+      do Screen.setColor(false);
+      do Screen.drawRectangle(0,233, 511,255);
+
+      // Prende il comando
+      do Output.moveCursor(22, 0);
+      let command = Keyboard.readLine(">");
+
+      // Prende il primo carattere e controlla se è exit
+      let exit = command.charAt(0);
+
+      if (exit = 69) {
+        let advance = false;
+      }
+      else {
+        // Decodifica ed esegue il comando
+        do f.execute(command);
+      }
+
+    }
+
     return;
   }
 }

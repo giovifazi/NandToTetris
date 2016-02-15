@@ -1,4 +1,68 @@
 class Funzioni {
 
-  
+  field Array undoArr;
+  field Array action;
+
+  constructor Funzioni new() {
+
+    let undoArr = Array.new(30);
+    let action = Array.new(6);
+
+    return this;
+  }
+
+  method void clearScreen() {
+    do Screen.setColor(false);
+    do Screen.drawRectangle(0,0, 511,230);
+
+    return;
+  }
+
+  method void execute(String s) {
+    var char c;
+    let c = s.charAt(0);
+
+    // Imposta o white o black
+    if (c = 67) {
+      do clearScreen();
+    }
+    else {
+      if (c = 87) {
+        do Screen.setColor(false);
+      }
+      else {
+        do Screen.setColor(true);
+      }
+    }
+
+    // Imposta il tipo di figura da disegnare
+    let c = s.charAt(1);
+
+    if (c = 76) { // se line
+      do line(s);
+    }
+
+    if (c = 67) {   // se cerchio
+      do circle(s);
+    }
+
+    if (c = 80) {   // se pixel
+      do pixel(s);
+    }
+
+    if (c = 82) {   // se rect
+      do rectangle(s);
+    }
+
+    return;
+  }
+
+  method void line(String s) {
+    var String x,y, xx,yy;
+
+    let x = copyIntUntil(6)
+
+
+  }
+
 }

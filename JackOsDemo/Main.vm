@@ -1,27 +1,36 @@
-function Main.main 0
+function Main.main 4
 push constant 0
-push constant 230
+not
+pop local 2
+push constant 25
+call String.new 1
+pop local 1
+call Funzioni.new 0
+pop local 0
+push constant 0
+push constant 232
 push constant 511
-push constant 230
+push constant 232
 call Screen.drawLine 4
 pop temp 0
 push constant 0
-push constant 229
+push constant 231
 push constant 511
-push constant 229
+push constant 231
 call Screen.drawLine 4
 pop temp 0
+label WHILE_EXP0
+push local 2
+not
+if-goto WHILE_END0
 push constant 0
-push constant 228
-push constant 511
-push constant 228
-call Screen.drawLine 4
+call Screen.setColor 1
 pop temp 0
 push constant 0
-push constant 227
+push constant 233
 push constant 511
-push constant 227
-call Screen.drawLine 4
+push constant 255
+call Screen.drawRectangle 4
 pop temp 0
 push constant 22
 push constant 0
@@ -31,7 +40,28 @@ push constant 1
 call String.new 1
 push constant 62
 call String.appendChar 2
-call Output.printString 1
+call Keyboard.readLine 1
+pop local 1
+push local 1
+push constant 0
+call String.charAt 2
+pop local 3
+push local 3
+push constant 69
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+pop local 2
+goto IF_END0
+label IF_FALSE0
+push local 0
+push local 1
+call Funzioni.execute 2
 pop temp 0
+label IF_END0
+goto WHILE_EXP0
+label WHILE_END0
 push constant 0
 return

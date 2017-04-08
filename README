@@ -1,0 +1,35 @@
+Instructions:
+
+-launch VMEmulator.sh inside the 'tool' directory
+ (Linux Users: just cd into tool directory and ./VMEmulator.sh)
+
+-open one of my demos directory (BouncySquare or cli-paint)
+
+--------------------------------------------------------------------------------
+
+BoucySquare is a simple game, press space to jump and avoid the spikes. Score is
+in the top-left corner
+
+--------------------------------------------------------------------------------
+
+Cli-paint is a simple JackOs demo, you can draw through command line expression.
+Syntax:
+ ----------------------------
+|Color | Shape | Coordinates |
+ ----------------------------
+|W or B| LINE  | x,y;xx,yy;  |
+|W or B| CIRC  | x,y,r;      |
+|W or B| PIX   | x,y;        |
+|W or B| RECT  | x,y;xx,yy;  |
+------------------------------
+
+Examples:
+BLINE 0,0;100,100;      <-- draws a Black LINE from (0,0) to (100,100)
+WCIRC 100,100,40;       <-- draws a White CIRCle in (100,100) with a 40px radius
+
+!! IMPORTANT !!
+There`s no error handling, so if you use a wrong syntax you must restart the
+Emulator. If you are getting errors, check the syntax! Don`t forget to put a
+semicolon at the end of each command and commas where requested (see table
+above). Also spaces are very important, this is not a full feature program but a
+demo.

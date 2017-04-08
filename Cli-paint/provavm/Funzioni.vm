@@ -1,0 +1,345 @@
+function Funzioni.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push constant 30
+call Array.new 1
+pop this 0
+push constant 6
+call Array.new 1
+pop this 1
+push pointer 0
+return
+function Funzioni.clearScreen 0
+push argument 0
+pop pointer 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push constant 0
+push constant 0
+push constant 511
+push constant 230
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Funzioni.execute 1
+push argument 0
+pop pointer 0
+push argument 1
+push constant 0
+call String.charAt 2
+pop local 0
+push local 0
+push constant 67
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push pointer 0
+call Funzioni.clearScreen 1
+pop temp 0
+push constant 0
+return
+goto IF_END0
+label IF_FALSE0
+push local 0
+push constant 87
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+call Screen.setColor 1
+pop temp 0
+goto IF_END1
+label IF_FALSE1
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+label IF_END1
+label IF_END0
+push argument 1
+push constant 1
+call String.charAt 2
+pop local 0
+push local 0
+push constant 76
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push pointer 0
+push argument 1
+call Funzioni.line 2
+pop temp 0
+label IF_FALSE2
+push local 0
+push constant 67
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push pointer 0
+push argument 1
+call Funzioni.circle 2
+pop temp 0
+label IF_FALSE3
+push local 0
+push constant 80
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push pointer 0
+push argument 1
+call Funzioni.pixel 2
+pop temp 0
+label IF_FALSE4
+push local 0
+push constant 82
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push pointer 0
+push argument 1
+call Funzioni.rectangle 2
+pop temp 0
+label IF_FALSE5
+push constant 0
+return
+function Funzioni.copyIntUntil 3
+push argument 0
+pop pointer 0
+push constant 0
+pop local 2
+push constant 3
+call String.new 1
+pop local 1
+label WHILE_EXP0
+push local 2
+not
+not
+if-goto WHILE_END0
+push argument 3
+push argument 1
+call String.charAt 2
+pop local 0
+push local 0
+push argument 2
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+pop local 2
+goto IF_END0
+label IF_FALSE0
+push local 1
+push local 0
+call String.appendChar 2
+pop local 1
+push argument 1
+push constant 1
+add
+pop argument 1
+label IF_END0
+goto WHILE_EXP0
+label WHILE_END0
+push local 1
+return
+function Funzioni.line 4
+push argument 0
+pop pointer 0
+push pointer 0
+push constant 6
+push constant 44
+push argument 1
+call Funzioni.copyIntUntil 4
+pop local 0
+push pointer 0
+push constant 7
+push local 0
+call String.length 1
+add
+push constant 59
+push argument 1
+call Funzioni.copyIntUntil 4
+pop local 1
+push pointer 0
+push constant 8
+push local 0
+call String.length 1
+add
+push local 1
+call String.length 1
+add
+push constant 44
+push argument 1
+call Funzioni.copyIntUntil 4
+pop local 2
+push pointer 0
+push constant 9
+push local 0
+call String.length 1
+add
+push local 1
+call String.length 1
+add
+push local 2
+call String.length 1
+add
+push constant 59
+push argument 1
+call Funzioni.copyIntUntil 4
+pop local 3
+push local 1
+call String.intValue 1
+push constant 230
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 1
+call Sys.error 1
+pop temp 0
+label IF_FALSE0
+push local 0
+call String.intValue 1
+push local 1
+call String.intValue 1
+push local 2
+call String.intValue 1
+push local 3
+call String.intValue 1
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+return
+function Funzioni.circle 3
+push argument 0
+pop pointer 0
+push pointer 0
+push constant 6
+push constant 44
+push argument 1
+call Funzioni.copyIntUntil 4
+pop local 0
+push pointer 0
+push constant 7
+push local 0
+call String.length 1
+add
+push constant 44
+push argument 1
+call Funzioni.copyIntUntil 4
+pop local 1
+push pointer 0
+push constant 8
+push local 0
+call String.length 1
+add
+push local 1
+call String.length 1
+add
+push constant 59
+push argument 1
+call Funzioni.copyIntUntil 4
+pop local 2
+push local 0
+call String.intValue 1
+push local 1
+call String.intValue 1
+push local 2
+call String.intValue 1
+call Screen.drawCircle 3
+pop temp 0
+push constant 0
+return
+function Funzioni.rectangle 4
+push argument 0
+pop pointer 0
+push pointer 0
+push constant 6
+push constant 44
+push argument 1
+call Funzioni.copyIntUntil 4
+pop local 0
+push pointer 0
+push constant 7
+push local 0
+call String.length 1
+add
+push constant 59
+push argument 1
+call Funzioni.copyIntUntil 4
+pop local 1
+push pointer 0
+push constant 8
+push local 0
+call String.length 1
+add
+push local 1
+call String.length 1
+add
+push constant 44
+push argument 1
+call Funzioni.copyIntUntil 4
+pop local 2
+push pointer 0
+push constant 9
+push local 0
+call String.length 1
+add
+push local 1
+call String.length 1
+add
+push local 2
+call String.length 1
+add
+push constant 59
+push argument 1
+call Funzioni.copyIntUntil 4
+pop local 3
+push local 0
+call String.intValue 1
+push local 1
+call String.intValue 1
+push local 2
+call String.intValue 1
+push local 3
+call String.intValue 1
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Funzioni.pixel 2
+push argument 0
+pop pointer 0
+push pointer 0
+push constant 6
+push constant 44
+push argument 1
+call Funzioni.copyIntUntil 4
+pop local 0
+push pointer 0
+push constant 7
+push local 0
+call String.length 1
+add
+push constant 59
+push argument 1
+call Funzioni.copyIntUntil 4
+pop local 1
+push local 0
+call String.intValue 1
+push local 1
+call String.intValue 1
+call Screen.drawPixel 2
+pop temp 0
+push constant 0
+return

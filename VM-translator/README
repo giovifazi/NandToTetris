@@ -1,0 +1,21 @@
+Please note: 
+This was my second and third C code. It is bad code, dont take example from it.
+It was written in the first semester of the first year of University.
+
+--------------------------------------------------------------------------------
+
+I dont remember all the differences between the base VM and the full VM (Completa)
+the base vm seems to traslate single files, the full translates all the .vm files
+inside a dir.
+
+--------------------------------------------------------------------------------
+BASE VM Instructions:
+
+make
+./VMtranslator
+
+--------------------------------------------------------------------------------
+FULL VM Instructions:
+
+make
+./VMtranslator /path/to/your/dir
